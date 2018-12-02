@@ -1,0 +1,83 @@
+%% Get data from eph matrix
+sqrtA = eph(7,1);
+toe = eph(8,1);
+dn = eph(2,1);
+m0 = eph(3,1);
+e = eph(5,1);
+w = eph(14,1);
+Cuc = eph(4,1);
+Cus = eph(6,1);
+Crs = eph(1,1);
+Cis = eph(11,1);
+Crc = eph(13,1);
+Cic = eph(9,1);
+i0 = eph(12,1);
+idot = eph(16,1);
+omg0 = eph(10,1);
+odot = eph(15,1);
+
+% Find satellite coordinates in ECEF frame
+ 
+mu =  3.986005e14;
+omega_earth = 7.2921151467e-5; %(rad/sec)
+
+A = sqrtA^2;
+n0 = sqrt(mu/A^3); % computed mean motion
+tk = t - toe; % Find out what is t
+
+% account for beginning of end of week crossover
+if (tk > 302400)
+	tk = tk-604800;
+end
+if (tk < -302400)
+	tk = tk+604800;
+end 
+% apply mean motion correction
+n = n0 + dn;
+
+% Mean anomaly
+Mk = m0 + n*tk;
+
+% solve for eccentric anomaly
+Ek_old = Mk; %initial value of Ek = mk
+while 1
+    Ek = Mk + e*sin(Ek_old)
+    if (Ek-Ek_old)< 1e-08
+        break
+    end
+    Ek_old = Ek
+end
+
+% True anomaly:
+nu = atan2(sqrt(1-e^2)*sin(Ek)/(1-e*cos(Ek)), (cos(Ek)-e)/(1-e*cos(Ek)));
+Ek = acos((e  + cos(nu))/(1+e*cos(nu)));
+
+Phi = nu + w;
+du = 0;
+dr = 0;
+di = 0;
+
+% compute harmonic corrections
+du = Cus*sin(2*Phi) + Cuc*cos(2*Phi);
+dr = Crs*sin(2*Phi) + Crc*cos(2*Phi);
+di = Cis*sin(2*Phi) + Cic*cos(2*Phi);
+
+%Corrected argument of latitude
+uk = Phi + du;
+
+% Corrected radius
+rk = A*(1-e*cos(Ek)) + dr;
+
+% inclination angle at reference time
+i = i0 + idot*tk + di;
+
+% Satellite position in orbital plane
+x_prime = rk*cos(uk);
+y_prime = rk*sin(uk);
+
+%Corrected longitute of ascending node
+omega = omg0 + (odot - omega_earth)*tk - omega_earth*toe;
+
+x_k = x_prime*cos(omega) - y_prime*cos(i)*sin(omega);
+y_k = x_prime*sin(omega) + y_prime*cos(i)*cos(omega);
+z_k = y_prime*sin(i);
