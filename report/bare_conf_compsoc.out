@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Assumptions}{}% 2
+\BOOKMARK [1][-]{section.3}{Flowchart for the matlab code}{}% 3
+\BOOKMARK [1][-]{section.4}{Components of the code}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Ephemeris data from satellites}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Initial position of user and user clock bias}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Satellite position from Ephemeris data}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Compute satellite position vector from user}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.5}{Calculate the \040}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.6}{Compute design matrix H }{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.7}{Least square solution}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.8}{Update user position and user clock bias error}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.9}{Calculate satellite Azimuth and Elevation from user position}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.10}{Calculate clock bias error of satellites}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.11}{Calculate Ionosphere delay}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.12}{Calculate Troposphere delay}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.13}{Update value of \040for next iteration}{section.4}% 17
+\BOOKMARK [1][-]{section.5}{Results}{}% 18
+\BOOKMARK [1][-]{section.6}{Error Analysis}{}% 19
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 20
+\BOOKMARK [1][-]{section*.1}{References}{}% 21
